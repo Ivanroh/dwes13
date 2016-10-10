@@ -47,13 +47,14 @@ public class GestorFiguras {
 	 * Método para eliminar una figura
 	 * @param titulo A partir del título se hara la busqueda para eliminar la figura
 	 */
-	public void eliminarFigura(String titulo){			
-		if (buscarTitulo(titulo)==null) {
+	public void eliminarFigura(String titulo){
+		Figura f = buscarTitulo(titulo);
+		if (f==null) {
 			System.out.println("No existe ningúna figura con el título: "+titulo);
 		}
 
 		else{		
-			listaFiguras.remove(buscarTitulo(titulo));
+			listaFiguras.remove(f);
 			System.out.println("Figura eliminada");
 		}
 	}
@@ -63,7 +64,7 @@ public class GestorFiguras {
 	 * @param titulo busca por titulo para saber si existe en el ArrayList
 	 * @return Figura Devuelve una figura o null si no lo encuentra
 	 */
-	public Figura buscarTitulo(String titulo){
+	private Figura buscarTitulo(String titulo){
 		boolean encontrado=false;
 		for (int i = 0; i <listaFiguras.size()&&!encontrado; i++) {
 			Figura f= listaFiguras.get(i);
