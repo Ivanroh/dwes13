@@ -11,7 +11,7 @@ public class Principal {
 		
 		Disco disc=new Disco(diametro);
 		
-		disc.dibujarDisco(disc.getDiametro());
+		disc.dibujarDisco();
 		
 		teclado.close();
 	}

@@ -18,7 +18,7 @@ public class Disco {
 			this.diametro = diametro;
 	}
 
-	public void dibujarDisco(int diametro){
+	public void dibujarDisco(){
 		for (int i = 0; i < diametro; i++) {
 			System.out.print("o");
 		}
