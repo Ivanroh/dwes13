@@ -45,8 +45,16 @@ public class Poste {
 			listaDiscos.get(i).dibujarDisco();
 		}
 		
-		for (int i = 0; i <listaDiscos.get(listaDiscos.size()).getDiametro()+2; i++) {
-			System.out.print("=");
+		if (esVacio()) {
+			for (int i = 0; i < 5; i++) {
+				System.out.print("=");
+			}
+		}
+		else{
+		
+			for (int i = 0; i <listaDiscos.get(listaDiscos.size()).getDiametro()+2; i++) {
+				System.out.print("=");
+			}
 		}
 		
 	}
