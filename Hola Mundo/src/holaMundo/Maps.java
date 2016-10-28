@@ -23,12 +23,22 @@ public class Maps {
 		numTlf.put("Luis",664167893);
 		numTlf.put("Daniel",664167894);
 		
+		int busca=664167891;
 		numTlf.forEach((nombre,numTlfno) -> {
-			
-			System.out.println(nombre+" Tlf: "+numTlfno);
-			
+			if (numTlfno == busca) {
+				System.out.println("El télefono: "+busca+" corresponde al usuario "+nombre);
+			}	
 		});
 	
+		if (numTlf.containsValue(664167893)){
+			System.out.println("Existe el valor");
+		}
+		
+		if (numTlf.containsKey("Rodrigo")){
+			System.out.println("Existe la clave");
+		}
+		
+		
 		System.out.println("\nEl número de Daniel es: "+numTlf.get("Daniel"));
 		
 		
