@@ -1,3 +1,5 @@
+<html>
+<body>
 <?php
 
 //Pedir un número X y calcular su factorial utilizando iteraciones.
@@ -22,3 +24,5 @@ else{
 }
 
 ?>
+</body>
+</html>
