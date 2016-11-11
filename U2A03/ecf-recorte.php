@@ -1,3 +1,5 @@
+<html>
+<body>
 <?php
 /*Ejercicio 6: “ecf-recorte.php”
 Pedir una cadena de texto y mostrarla varias veces: en cada línea se mostrará un carácter
@@ -29,3 +31,10 @@ else{
 }
 
 ?>
+
+<form action='index.php'>
+<input type='submit' value='Volver'>
+</form>
+
+</body>
+</html>

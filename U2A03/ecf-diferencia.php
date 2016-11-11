@@ -6,7 +6,6 @@
  que otro se escribe asterisco) y repetir con almohadillas (resolviéndolo con for utilizando la
  diferencia entre a y b como número de repeticiones).*/
  
-//do{
 if (!isset($_POST['enviar'])){
 	echo "<h2>Diferencia entre dos números</h2>";
 ?>
@@ -74,9 +73,13 @@ else{
 		echo "<h4>Error datos mal introducidos</h4>\n";
 }
 		
-//}while($_POST["a"]!=5); 
+
 
 ?>
+
+<form action='index.php'>
+<input type='submit' value='Volver'>
+</form>
 
 </body>
 </html>

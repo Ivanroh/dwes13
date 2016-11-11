@@ -8,10 +8,10 @@ public class Disco {
 	public Disco(int diametro) {
 		
 		if (diametro<3) {
-			System.out.println("ADVERTENCIA: diámetro demasiado pequeño, se le asigna un 3.");
+			System.out.println("ADVERTENCIA: diÃ¡metro demasiado pequeÃ±o, se le asigna un 3.");
 			this.diametro=3;
 		}else if (diametro%2==0) {
-			System.out.println("ADVERTECIA:  diámetro del disco inválido, se le asigna un "+(diametro+1)+".");
+			System.out.println("ADVERTECIA:  diÃ¡metro del disco invÃ¡lido, se le asigna un "+(diametro+1)+".");
 			this.diametro=diametro+1;
 		}
 		else 

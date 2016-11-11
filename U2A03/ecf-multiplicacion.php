@@ -1,3 +1,5 @@
+<html>
+<body>
 <?php
 //Pedir un número X y mostrar su tabla de multiplicar.
 
@@ -22,3 +24,10 @@ else{
 }
 
 ?>
+
+<form action='index.php'>
+<input type='submit' value='Volver'>
+</form>
+
+</body>
+</html>

@@ -42,5 +42,9 @@ else{
 
 ?>
 
+<form action='index.php'>
+<input type='submit' value='Volver'>
+</form>
+
 </body>
 </html>

@@ -1,3 +1,5 @@
+<html>
+<body>
 <?php
 /*Ejercicio 7: “ecf-meses”
 En un formulario se recogerá un valor en un cuadro de texto y un radio group para indicar si el
@@ -51,3 +53,10 @@ else{
 }
 
 ?>
+
+<form action='index.php'>
+<input type='submit' value='Volver'>
+</form>
+
+</body>
+</html>

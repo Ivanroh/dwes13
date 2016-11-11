@@ -5,6 +5,14 @@ import java.util.ArrayList;
 public class Poste {
 
 	private ArrayList<Disco> listaDiscos;
+	
+	public ArrayList<Disco> getListaDiscos() {
+		return listaDiscos;
+	}
+
+	public void setListaDiscos(ArrayList<Disco> listaDiscos) {
+		this.listaDiscos = listaDiscos;
+	}
 
 	public Poste() {
 		listaDiscos=new ArrayList<Disco>();
@@ -32,30 +40,22 @@ public class Poste {
 			return listaDiscos.get(listaDiscos.size());
 	}
 	
-	/*dibujar: debe ir dibujando los discos del poste desde el ˙ltimo que se insertÛ hasta el
-	primero, utilizando el mÈtodo ìdibujarî que programamos en la clase Disco. Al final
-	dibujaremos la base del poste. La base consiste en sÌmbolos ì=î: para que el dibujo
-	quede bien, habr· 2 m·s que el di·metro del disco m·s grande contenido en el poste.
-	Por ejemplo, si el disco m·s grande tiene di·metro 7, la base del poste tendr· 9
-	sÌmbolos ì=î:*/
+	/*dibujar:  debe ir dibujando los discos del poste desde el √∫ltimo que se insert√≥ hasta  el 
+	primero,  utilizando  el  m√©todo ‚Äúdibujar‚Äù que  programamos  en  la  clase  Disco.  Al  final dibujaremos
+ 	la base del poste. La base consiste en s√≠mbolos ‚Äú=‚Äù: para  que  el  dibujo quede bien, habr√° 2 m√°s que el 
+	di√°metro del disco m√°s grande contenido en el poste. Por  ejemplo,  si  el  disco  m√°s  grande  tiene di√°metro
+	7,  la  base  del  poste  tendr√°  9 s√≠mbolos ‚Äú=‚Äù:*/
 
-	
 	public void dibujar(){
+		
 		for (int i = 0; i < listaDiscos.size(); i++) {
 			listaDiscos.get(i).dibujarDisco();
+			System.out.println("");
+		}		
+		for (int i = 0; i < listaDiscos.get(listaDiscos.size()-1).getDiametro()+2; i++) {
+			System.out.print("=");
 		}
 		
-		if (esVacio()) {
-			for (int i = 0; i < 5; i++) {
-				System.out.print("=");
-			}
-		}
-		else{
-		
-			for (int i = 0; i <listaDiscos.get(listaDiscos.size()).getDiametro()+2; i++) {
-				System.out.print("=");
-			}
-		}
 		
 	}
 }

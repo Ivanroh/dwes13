@@ -1,3 +1,5 @@
+<html>
+<body>
 <?php
 /*Mostrar  en  pantalla  los  múltiplos  de  3  y  5  entre  el  1  y  el  1000.  A  continuación  mostrar  en
 pantalla los 20 primeros múltiplos de 3 y 5.*/
@@ -41,5 +43,10 @@ for ($i=1;$i<=1000 && $cont<20;$i++){
 	}
 }
 
-
 ?>
+<form action='index.php'>
+<input type='submit' value='Volver'>
+</form>
+
+</body>
+</html>
