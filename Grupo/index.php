@@ -72,7 +72,7 @@ right: 669px;
 	if(isset($_POST["enviar"])){
 		
 		if (!preg_match("/^[a-zA-Z ]*$/",$_POST["nombre"])) {
-			$nombreErr = "* Nombre no válido.<br/> El nombre solo debe de contener letras.";
+			$nombreErr = "<span>* Nombre no válido.<br/> El nombre solo debe de contener letras.</span>";
 			$nombre=$_POST['nombre'];
 			$nomVali=false;
 		}
@@ -108,7 +108,7 @@ right: 669px;
 	if(isset($_POST["enviar"])){
 		
 		if (!preg_match("/^[a-zA-Z ]*$/",$_POST["apellido"])) {
-			$apellErr = "* Apellido no válido.<br/>El apellido solo debe de contener letras.";
+			$apellErr = "<span>* Apellido no válido.<br/>El apellido solo debe de contener letras.</span>";
 			$apellido=$_POST['apellido'];
 			$apeVali=false;
 		}
@@ -148,7 +148,7 @@ right: 669px;
 			$emailVali=false;
 		}else 
 		if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-				$emailErr = "* Formato de email inválido";
+				$emailErr = "<span>* Formato de email inválido</span>";
 				$email=$_POST["email"];
 				$emailVali=false;
 		}else

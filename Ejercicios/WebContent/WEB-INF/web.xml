@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<servlet>
+		<servlet-name>servletFecha</servlet-name>
+		<servlet-class>Fecha</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>servletFecha</servlet-name>
+		<url-pattern>/EscribeFecha</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>servletInventaNumero</servlet-name>
+		<servlet-class>InventaNumero</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>servletInventaNumero</servlet-name>
+		<url-pattern>/InventaNumero</url-pattern>
+	</servlet-mapping>
+
+	<display-name>MuestraVariablesServidor</display-name>
+
+
+	<context-param>
+		<param-name>Creador</param-name>
+		<param-value>Iván Hidalgo</param-value>
+	</context-param>
+
+
+	<servlet>
+		<servlet-name>servletVariablesServidor</servlet-name>
+		<servlet-class>MuestraVariablesServidor</servlet-class>
+		<init-param>
+			<param-name>contexto</param-name>
+			<param-value>solo en este servlet</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>servletVariablesServidor</servlet-name>
+		<url-pattern>/MuestraVariablesServidor</url-pattern>
+	</servlet-mapping>
+</web-app>
