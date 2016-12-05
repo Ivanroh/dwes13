@@ -1,0 +1,26 @@
+<html>
+<head>
+<meta charset="UTF-8">
+
+</head>
+<body>
+
+	<form action='/DatosPersonales/ProcesarDatos' method='post'>
+	Producto <br/><input type='text' name='producto'><br/>
+	Fecha de pedido<br/> <input type='date' name='fechaPedido'><br/>
+	Urgencia (marcar si es urgente)<br/> <input type='radio' name='urgencia'><br/>
+	Tipo de pedido <br/>
+	Pesado<input type="checkbox" value="pesado" name='tipo'> Medio <input type="checkbox" value='medio' name="tipo"> Ligero <input type="checkbox" value='ligero' name="tipo"><br/>
+	Capacidad de almacenamiento de la empresa (m2) <br/>
+	<select name='capacidad'>
+		<option>Hasta 200</option>
+		<option>Entre 200 - 500</option>
+		<option>Más de 500</option>
+	</select>
+	<br/>
+	Descripción del pedido<br/><textarea rows="5" cols="60" name="comentario"> </textarea><br/>
+	<input type='submit' name='enviar' value='Enviar Formulario'>
+	</form>
+
+</body>
+</html>
