@@ -19,6 +19,7 @@ public class ValidacionFormularioServlet13 extends HttpServlet {
 		res.setContentType("text/html");
 		PrintWriter out = res.getWriter();
 		
+		
 		String producto = req.getParameter("producto");
 		String fecha=req.getParameter("fecha");
 		String urgencia = req.getParameter("urgencia");
@@ -27,8 +28,14 @@ public class ValidacionFormularioServlet13 extends HttpServlet {
 		String[] comentario=req.getParameterValues("comentario");
 		
 		if(producto.isEmpty()){
-			out.println("<span>vacio</span>");
+			out.println("<span>Producto vacio"+req.getRequestURI()+" </span>");
+			String ruta="http://localhost:8080/DatosPersonales";
+			
 		}
+		
+		
+		
+
 		
 		
 	}

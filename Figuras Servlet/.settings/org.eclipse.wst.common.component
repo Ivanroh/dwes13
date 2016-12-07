@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="Figuras Servlet">
+    <wb-module deploy-name="FigurasServlet">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <property name="context-root" value="Figuras_Servlet"/>
-        <property name="java-output-path" value="/Figuras Servlet/build/classes"/>
+        <property name="java-output-path" value="/FigurasServlet/build/classes"/>
     </wb-module>
 </project-modules>

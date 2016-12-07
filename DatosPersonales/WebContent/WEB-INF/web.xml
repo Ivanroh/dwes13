@@ -9,4 +9,14 @@
     <servlet-name>ProcesamientoFormulario</servlet-name>
     <url-pattern>/ProcesarDatos</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ValidarFormulario</servlet-name>
+    <servlet-class>servlets.ValidacionFormularioServlet13</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ValidarFormulario</servlet-name>
+    <url-pattern>/ValidarDatos</url-pattern>
+  </servlet-mapping>
 </web-app>

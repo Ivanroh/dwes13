@@ -4,17 +4,28 @@
 <meta charset="UTF-8">
 </head>
 <body>
+
+<form action="/Figuras_Servlet/TratamientoFiguras" method="post">
 Lado X: <input type="number" name="ladoX"><br/>
 Lado Y: <input type="number" name="ladoY"><br/>
 Radio X: <input type="number" name="radioX"><br/>
 Radio Y: <input type="number" name="radioY"><br/>
 Color: 
-<select>
-<option>Rojo</option>
-<option>Azul</option>
-<option>Verde</option>
-<option>Blanco</option>
-<option>Negro</option>
+<select name="color">
+<option value="RED">RED</option>
+<option value="BLUE">BLUE</option>
+<option value="GREEN">GREEN</option>
+<option value="WHITE">WHITE</option>
+<option value="BLACK">BLACK</option>
 </select>
+<br/>
+Borde<br/>Si <input type="radio" name="borde" value="si"><br/> No<input type="radio" name="borde" value="no"> 
+
+<input type="submit" name="enviar">
+
+
+</form>
+
+
 </body>
 </html>
