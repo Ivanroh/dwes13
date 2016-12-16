@@ -26,7 +26,7 @@ if($acum<50){
 
 }
 else{
-	echo "$acum";
+	echo "suma superada total $acum";
 	
 }
 

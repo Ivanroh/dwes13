@@ -46,19 +46,7 @@ public class ProcesamientoFormularioServlet13 extends HttpServlet {
 			}
 		});
 		
-		
-		// SimpleDateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");
-				/*
-				 * try{ Date fecha=formatoFecha.parse(req.getParameter("fecha"));
-				 * SimpleDateFormat formatoSalida=new SimpleDateFormat("dd/MM/yyyy");
-				 * out.print("Fecha"+formatoSalida); }catch (ParseException e) {
-				 * e.printStackTrace(); } catch (java.text.ParseException e) { // TODO
-				 * Auto-generated catch block e.printStackTrace(); }
-		*/
-		
-		
-		//FECHA
-		
+				
 		out.println("<h4>Salida de fecha</h4>");
 		
 		SimpleDateFormat formatForm=new SimpleDateFormat("yyyy-MM-dd");
