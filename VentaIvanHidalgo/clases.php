@@ -59,6 +59,7 @@ class Coche {
 		$this->descripcion=$descripcion;
 	}
 	
+	
 	public function datosVehiculo() {
 		return "<h3>Datos del vehículo</h3>\n
 			<p><strong>Marca: </strong> $this->marca</p>\n
@@ -112,16 +113,61 @@ class Usuario {
 		$this->email=$email;
 	}
 	
+	public  function mostrarContrasenia(){
+		$res="";
+		for ($i=0;$i<strlen($this->contra);$i++){
+			$res.="*";
+		}
+		echo "<p><strong>Contraseña:</strong>  $res </p>";
+	}
+	
 	public function datosUsuario() {
-
+		
 		return "<h3>Datos del Usuario</h3>\n
 		<p><strong>Usuario: </strong> $this->usuario</p>\n
-		<p><strong>Contraseña: </strong>$this->contra</p>\n
 		<p><strong>Email: </strong>$this->email</p>\n
 		";
 	
 	}
+	
+	
+	
 }
+
+
+///////////////////////////////////////////////////////////////////////////////////////77
+
+
+if ($usuario.end($usuRegistrado)){
+	//$usuRegistrado = array_pop( $usuRegistrado );
+	$usuarioErr = "El usuario ya existe";
+	$usuValido = false;
+}
+
+$cont = 0;
+foreach ( $usuRegistrado as $usu ) {
+		
+	if ($usuario == $usu) {
+		$cont ++;
+	}
+}
+
+if ($cont > 1) {
+		
+	foreach ( $usuRegistrado as $usu ) {
+
+		if ($usu == $usuario) {
+			unset ( $usu );
+			echo "Entra";
+		}
+	}
+		
+	$usuario = "";
+	echo "<h4>ERROR usuario ya registrado</h4>";
+	$usuValido = false;
+}
+
+
 
 
 ?>

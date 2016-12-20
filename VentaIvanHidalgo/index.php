@@ -20,6 +20,9 @@
 $marcaErr = $modeloErr = $fechaErr = $colorErr = $kmUsoErr = $precioErr = $usuarioErr = $contraErr = $contra2Err = $emailErr = $acumUsu = "";
 $marca = $modelo = $fecha = $color = $kmUso = $precio = $usuario = $contra = $contra2 = $email = $descripcion = "";
 $usuValido = $contraValido = $contra2Valido = $emailValido = false;
+//$completado=false;
+
+
 if ($_SERVER ["REQUEST_METHOD"] == "POST") {
 	// validacion nombre
 	if (empty ( $_POST ["marca"] )) {
@@ -115,9 +118,12 @@ if ($_SERVER ["REQUEST_METHOD"] == "POST") {
 			$usuValido = true;
 			if (isset ( $_POST ["acumUsu"] ))
 				$acumUsu = $_POST ["acumUsu"] . $usuario . "/";
-			
 		}
 	}
+	
+	
+	
+	
 	
 	// Contraseña
 	if (empty ( $_POST ["contrasenia"] )) {
@@ -158,14 +164,8 @@ if ($_SERVER ["REQUEST_METHOD"] == "POST") {
 		$descripcion = test_input ( $_POST ["descripcion"] );
 	}
 	
-	/*
-	 * if (isset($_POST["acumUsu"]))
-	 * $acumUsu=$_POST['acumUsu']+$_POST["usuario"]+"/";
-	 * //$acum= $_POST["acum"]+$_POST["num"];
-	 * //$acumUsu= $_POST["acumUsu"];
-	 * else
-	 * $acumUsu="";
-	 */
+
+	
 }
 function test_input($data) {
 	$data = trim ( $data );
@@ -175,17 +175,9 @@ function test_input($data) {
 }
 
 /*
-if (isset($_POST ["enviar"]) ) {
-	//if ($_POST["volver"]=="si"){
-	$marcaErr = $modeloErr = $fechaErr = $colorErr = $kmUsoErr = $precioErr = $usuarioErr = $contraErr = $contra2Err = $emailErr = "";
-	$marca = $modelo = $fecha = $color = $kmUso = $precio = $usuario= $contra=$contra2= $email= $descripcion="";
-	
-	echo "<p>Desea volver</p>";
-	
-	$usuValido=$contraValido=$contra2Valido=$emailValido=false;
-	
-	//}else{echo "No volvio";}
-}*/
+if ($marcaErr == "" and $modeloErr == "" and $fechaErr =="" and  $colorErr == "" and $kmUsoErr == "" and $precioErr =="" and $usuarioErr =="" and $contraErr =="" and $contra2Err =="" and  $emailErr =="" and  $acumUsu == "")
+	$completado = true;
+	*/
 
 ?>
 
@@ -212,18 +204,8 @@ if (isset($_POST ["enviar"]) ) {
 		Nombre de usuario:<input type="text" name="usuario"
 			value="<?php echo $usuario;?>"> <span class="error">* <?php echo $usuarioErr;?></span>
 
-		<!--Campo oculto
-		//////////////////////////////////////////////////////////777
-		//////////////////////////////////////////////////////////777
-		//////////////////////////////////////////////////////////777
-		-->
 		<input type='hidden' name='acumUsu' value="<?php echo $acumUsu?>">
 
-		<!--Campo oculto
-		//////////////////////////////////////////////////////////777
-		//////////////////////////////////////////////////////////777
-		//////////////////////////////////////////////////////////777
-		-->
 
 		<br /> Contraseña:<input type="password" name="contrasenia"
 			value="<?php echo $contra;?>"> <span class="error">* <?php echo $contraErr;?></span>
@@ -232,25 +214,85 @@ if (isset($_POST ["enviar"]) ) {
 			class="error">* <?php echo $contra2Err;?></span> <br /> Correo
 		electrónico:<input type="email" name="email"
 			value="<?php echo $email;?>"> <span class="error">* <?php echo $emailErr;?></span>
-			
-		
+
+
 		<br /> <input type='submit' name='enviar' value='Enviar Formulario'>
 	</form>
 	
-	
+
 	
 	<?php
-	
-	if ($usuValido && $contraValido && $contra2Valido && $emailValido) {
+
+		
+	//if ($usuValido && $contraValido && $contra2Valido && $emailValido) {
 		// preguntar si quiere otra vez booleano para que salga el formulario y listo
 		
-		echo $_POST ["usuario"];
+		
+		$usuRegistrado = explode ( "/", $acumUsu );
+		
+		$element=count($usuRegistrado);
+		$element=$element-1;
+		//echo $element;
+		$borro=0;
+		$cont=0;
+		for($i=0;$i<$element;$i++){
+			if($usuRegistrado[$i]==$_POST["usuario"]){
+				$cont++;
+				if ($cont>=2){
+				$borro=$i;
+				echo $borro;
+				}
+			}
+		}
+		
+		unset($usuRegistrado[$borro]);
+		//unset($usuRegistrado[$element-1]);
+		//echo end($usuRegistrado);
+		//$usuarioRepetido = array_pop($usuRegistrado);
+		//unset($usuRegistrado[count($usuRegistrado)]);
+		//print_r($usuarioRepetido);
+		
+		//echo $_POST ["usuario"];
 		echo "<br>";
-		echo "<p>Acumulando $acumUsu</p>";
+		echo "<p>Acumulando</p>";
+		foreach ($usuRegistrado as $usu ) {
+			echo "<strong>".$usu."</strong>";
+		}
 		echo "<br>";
 		
+		//echo end($usuRegistrado);
+		//$acumUsu=$usuRegistrado;
+		
+		/*$contar=count($usuRegistrado);
+		echo "Contar :";
+		echo $contar;
+		echo "<br/>";*/
+		/*
+		$cont = 0;
+		foreach ( $usuRegistrado as $usu ) {
+			if ($usuario.$usu) {
+				$cont ++;
+				//echo $cont;
+				//echo end($acumUsu);
+			}
+		}
+		if ($cont > 2) {
+			
+			//$acumUsu=$usuRegistrado;
+			//$acumUsu=array_pop( $usuRegistrado );
+			//$usuarioErr = "El usuario ya existe";
+			$usuValido = false;
+			echo "<h4>ERROR usuario ya registrado</h4>";
+			$usuario="";
+		}*/
 		
 		
+		
+		
+		
+		
+				
+		/*
 		include 'clases.php';
 		if (isset ( $_POST ["enviar"] )) {
 			$coche = new Coche ();
@@ -270,15 +312,21 @@ if (isset($_POST ["enviar"]) ) {
 			$usuarioNuevo->setEmail ( $_POST ["email"] );
 			
 			echo $usuarioNuevo->datosUsuario ();
+			$usuarioNuevo->mostrarContrasenia();
+
 		} else {
-			$acumUsu="";
-		}
-	}
+			$acumUsu = "";
+		}*/
+	//}
 	
 	?>
 				
 	
 	
+
+
+
+
 
 
 </html>
