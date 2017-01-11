@@ -72,11 +72,11 @@ fclose($archivo);*/
 
 
 
-$archivo = fopen("files/nuevo.txt", 'r');
+$archivo = fopen("files/modulos.txt", 'r');
 if (!$archivo) {
 	echo 'No se pudo abrir archivo.txt';
 }
-$cont=0;
+//$cont=0;
 while(!feof($archivo)) {
 		$texto= fgets($archivo);
 		echo $texto;
