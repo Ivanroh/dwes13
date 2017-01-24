@@ -9,7 +9,9 @@
 		<h4>Introduzca un nombre</h4>
 		<input type="text" name='nombre'><br /> Añadir <input type="radio"
 			name='opc' value="si"> Borrar <input type="radio" name='opc'
-			value="no"> <br /> <input type="submit" name="enviar" value="Enviar">
+			value="no"> <br /> 
+			Volcar resultados <input type="radio" name='opc' value="fin">
+			<input type="submit" name="enviar" value="Enviar">
 	</form>
 
 <?php
@@ -36,34 +38,44 @@ if (isset ( $_POST ["enviar"] )) {
 		if($esta){
 			echo "Usuario ya existente, imposible añadir";
 		}else{
-		fwrite ( $archivo, $_POST ["nombre"] . "/" );
+			$final=substr($usuRegistrado, -1);
+			var_dump($final);
+		//fwrite ( $archivo, $_POST ["nombre"] . "/" );
 		}
-		echo readfile ( "files/nombres.txt" );
+		//echo readfile ( "files/nombres.txt" );
 		
 	} else if (strcasecmp ( $_POST ["opc"], "no" ) == 0) {
-		for($i=0;$i<count($usuRegistrado);$i++){
-			if (strcasecmp ( $usuRegistrado[$i], $_POST["nombre"] ) == 0){
+		for($i=0;$i<count($final);$i++){
+			if (strcasecmp ( $final[$i], $_POST["nombre"] ) == 0){
 				$esta=true;
+				unset($final[$i]);
 			}
 		}
+		
 		if($esta){
-			
-			unset($usuRegistrado[0]);
-			$result="";
+		/*	$result="";
 			for($i=0;$i<count($usuRegistrado);$i++){
 				$result.=$usuRegistrado[i];
 			}
 			
 			fwrite ( $archivo, $result );
-			//var_dump($usuRegistrado);
+			//var_dump($usuRegistrado);*/
 			
 		}else{
 			echo "El usuario no existe, no se puede borrar";
 		}
 		
+		
+		
 		echo readfile ( "files/nombres.txt" );
 
 	}
+	
+	else if (strcasecmp ( $_POST ["opc"], "fin" ) == 0) {
+		
+		
+	}
+	
 	else{echo "Selecione una opcion (Añadir/Borrar)";}
 	// fclose($archivo)
 	// echo "hoas";
