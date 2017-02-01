@@ -35,6 +35,12 @@ echo "<h3 style='color:red'>". $conexion->error ."</h3>";
 $conexion ->query ("DROP TABLE animal");
 echo "<h3 style='color:red'>". $conexion->error ."</h3>";
 
+echo "<a href='index.php'>Ir a index.php</a></br>";
+echo "<a href='conexion2.php'>Ir a conexion2.php</a></br>";
+echo "<a href='conexion3.php'>Ir a conexion3.php</a></br>";
+echo "<a href='conexion5.php'>Ir a conexion5.php</a></br>";
+echo "<a href='conexion6.php'>Ir a conexion6.php</a></br>";
+
 ?>
 	
 

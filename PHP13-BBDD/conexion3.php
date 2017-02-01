@@ -50,6 +50,13 @@ if ($conexion->connect_errno) {
 	?>
 	</table>
 	
+	<?php
+	echo "<a href='index.php'>Ir a index.php</a></br>";
+	echo "<a href='conexion2.php'>Ir a conexion2.php</a></br>";
+	echo "<a href='conexion4.php'>Ir a conexion4.php</a></br>";
+	echo "<a href='conexion5.php'>Ir a conexion5.php</a></br>";
+	echo "<a href='conexion6.php'>Ir a conexion6.php</a></br>";
+	?>
 
 </body>
 </html>

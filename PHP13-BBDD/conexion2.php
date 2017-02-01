@@ -71,6 +71,15 @@ while($fila!=null) {
 
 
 echo "<h3>Desconectando...</h3>";
+
+
+echo "<a href='index.php'>Ir a index.php</a></br>";
+echo "<a href='conexion3.php'>Ir a conexion3.php</a></br>";
+echo "<a href='conexion4.php'>Ir a conexion4.php</a></br>";
+echo "<a href='conexion5.php'>Ir a conexion5.php</a></br>";
+echo "<a href='conexion6.php'>Ir a conexion6.php</a></br>";
+
+
 mysqli_close($conexion);
 ?>
 
