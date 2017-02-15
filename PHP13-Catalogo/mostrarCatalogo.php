@@ -28,7 +28,20 @@ if ($conexion->connect_errno) {
 	echo "<p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>";
 }
 
-$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor" );
+if ($_REQUEST ( "busqueda" ) == "autor") {
+	
+	//if ($_REQUEST ( "orden" ) == "desc") {
+		$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY	autor.nombre desc" );
+	//} else
+		//$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY	autor.nombre" );
+} elseif ($_REQUEST ( "busqueda" ) == "titulo") {
+	
+	//if ($_REQUEST ( "orden" ) == "desc") {
+		$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY	obra.titulo desc" );
+	//} else
+		//$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY obra.titulo" );
+} else
+	$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor" );
 
 ?>
 	<table>
@@ -39,7 +52,9 @@ $resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where 
 			<th>Duración</th>
 			<th>Nombre Autor</th>
 			<th>Imagen</th>  -->
-			<th>Nombre Autor <a>&#9650;</a> <a>&#9660;</a>
+			<th>Nombre Autor <a
+				href="mostrarCatalogo.php?busqueda=autor">&#9650;</a> <a
+				href="mostrarCatalogo.php?busqueda=autor">&#9660;</a>
 			</th>
 			<th>Titulo <a>&#9650;</a> <a>&#9660;</a>
 			</th>
@@ -73,20 +88,20 @@ $resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where 
 <?php
 mysqli_free_result ( $resultado );
 $resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor" );
-$esta=false;
+$esta = false;
 if (isset ( $_POST ["enviar"] )) {
-	//echo "Enviar";
+	// echo "Enviar";
 	while ( $cancion = $resultado->fetch_object ( 'Obra' ) ) {
 		// strcasecmp($var1, $var2) == 0
 		
-		//echo $cancion->getTitulo ()."<br/>";
+		// echo $cancion->getTitulo ()."<br/>";
 		if (strcasecmp ( $cancion->getTitulo (), $_POST ["obra"] ) == 0) {
 			echo "<a href='mostrarObra.php?idObra=" . $cancion->getIdObra () . "'>Obra encotrada</a>";
-			$esta=true;
+			$esta = true;
 		}
 	}
-	if(!$esta)
-		echo "<p>No se encotro ninguna obra con el nombre - ".$_POST['obra']." -</p>";
+	if (! $esta)
+		echo "<p>No se encotro ninguna obra con el nombre - " . $_POST ['obra'] . " -</p>";
 }
 
 ?>

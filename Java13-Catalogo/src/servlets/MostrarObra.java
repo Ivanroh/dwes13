@@ -33,7 +33,7 @@ public class MostrarObra extends HttpServlet {
 		int idObra = 0;
 		boolean errorIdObraAusente = false;
 		boolean errorIdObraFormato = false;
-		boolean errorIdObraInexistente = false;
+		//boolean errorIdObraInexistente = false;
 		String idObraParametro = request.getParameter("idObra");
 		if (idObraParametro == null)
 			errorIdObraAusente = true;
@@ -69,43 +69,31 @@ public class MostrarObra extends HttpServlet {
 
 				// Paso 4: Ejecutar la sentencia SQL a través de los objetos
 				// Statement
-				String consulta = "SELECT * from obra where idObra=" + idObra;
-				ResultSet rset = sentencia.executeQuery(consulta);
-				if (!rset.isBeforeFirst()) {
-					// out.println("<h3>No hay resultados</p>");
-					errorIdObraInexistente = true;
-				}
-
-				// Paso 5: Mostrar resultados
-
-				if (errorIdObraInexistente) {
-					out.println("<h3>Obra no existente</p>");
-
-				} else {
-					rset.next();
-					out.println("<p>Obras del artista " + rset.getString("artista") + ":</p>");
-
-				}
 
 				String consultaObra = "SELECT *,nombre AS autor FROM obra,autor WHERE idObra = " + idObra
 						+ " AND autor.id=obra.idAutor";
-				rset = sentencia.executeQuery(consultaObra);
+				ResultSet rset = sentencia.executeQuery(consultaObra);
 				if (!rset.isBeforeFirst()) {
 					out.println("<p>Este artista no tiene ninguna obra</p>");
+				} else {
+					// Continuar
+					out.println("<ul>");
+					while (rset.next()) {
+						Cancion can = new Cancion(rset.getInt("idObra"), rset.getString("artista"),
+								rset.getString("titulo"), rset.getString("categoria"), rset.getDouble("duracion"),
+								rset.getString("imagen"), rset.getInt("idAutor"), rset.getString("autor"));
+						
+						out.println("<li>Identificador de la obra: <span>" + can.getIdObra() + "</span></li>");
+						out.println("<li>Artista: <span>" + can.getArtista() + "</span></li>");
+						out.println("<li>Titulo:<span> " + can.getTitulo() + "</span></li>");
+						out.println("<li>Categoria: <span>" + can.getCategoria()+ "</span></li>");
+						out.println("<li>Duración: <span>" + can.getDuracion() + "</span></li>");
+						out.println("<li>Identificador del autor: <span>" + can.getIdAutor() + "</span></li>");
+						out.println("<li>Nombre del Autor: <span>" + can.getAutor() + "</span></li>");
+						out.println("<li>Imagen</li> <img  src='img/" + can.getImagen() + "' width='100px'>");
+					}
+					out.println("</ul>");
 				}
-				// Continuar
-				while (rset.next()) {
-					out.println("<li>Identificador de la obra: <span>" + rset.getInt("idObra") + "</span></li>");
-					out.println("<li>Artista: <span>" + rset.getString("artista") + "</span></li>");
-					out.println("<li>Titulo:<span> " + rset.getString("titulo") + "</span></li>");
-					out.println("<li>Categoria: <span>" + rset.getString("categoria") + "</span></li>");
-					out.println("<li>Duración: <span>" + rset.getDouble("duracion") + "</span></li>");
-					out.println("<li>Identificador del autor: <span>" + rset.getInt("idAutor") + "</span></li>");
-					// out.println( "<li>Nombre del Autor:
-					// <span>"+rset.getString("autor")+"</span></li>");
-					out.println("<li>Imagen</li> <img  src='img/"+rset.getString("imagen")+"' width='100px'>");
-				}
-				out.println("</ul>");
 
 				out.print("<br/><a href='/Java13-Catalogo/MostrarCatalogo'>volver</a>");
 

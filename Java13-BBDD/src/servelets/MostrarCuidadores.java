@@ -31,6 +31,10 @@ public class MostrarCuidadores extends HttpServlet {
 		out.print("<a href='/Java13-BBDD/MostrarCuidador?idCuidador=23243'>Luis</a><br/>");
 		out.print("<a href='/Java13-BBDD/MostrarCuidador?idCuidador=54321'>Áurea</a><br/>");
 
+		out.print("<br/><a href='/Java13-BBDD/MostrarAnimales'>Mostrar Animales</a>");
+		out.print("<br/><a href='/Java13-BBDD/ModificarAnimal'>Modificar Animal</a>");
+
+		
 		out.println("</body></html>");
 		out.close();
 	}

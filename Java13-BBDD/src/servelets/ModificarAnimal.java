@@ -68,6 +68,8 @@ public class ModificarAnimal extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		out.print("<br/><a href='/Java13-BBDD/MostrarAnimales'>Mostrar Animales</a>");
+		out.print("<br/><a href='/Java13-BBDD/MostrarCuidadores'>Mostrar Cuidadores</a>");
 		out.println("</body></html>");
 		out.close();
 

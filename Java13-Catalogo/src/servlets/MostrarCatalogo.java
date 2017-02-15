@@ -67,13 +67,61 @@ public class MostrarCatalogo extends HttpServlet {
 			out.print("<th>Autor</th>");
 			out.print("</tr>");
 			while (rset.next()) {
-				Cancion can=new Cancion(rset.getInt("idObra"), rset.getString("artista"), rset.getString("titulo"), rset.getString("categoria"), rset.getDouble("duracion"), rset.getString("imagen"), rset.getInt("idAutor"));
+				Cancion can = new Cancion(rset.getInt("idObra"), rset.getString("artista"), rset.getString("titulo"),
+						rset.getString("categoria"), rset.getDouble("duracion"), rset.getString("imagen"),
+						rset.getInt("idAutor"));
 				out.print("<tr>");
-				out.print("<td>" + can.getTitulo() + "</td>");
-				out.print("<td><a href='MostrarObra?idObra="+can.getIdObra()+"' >" + can.getArtista() + "</a></td>");
+				out.print("<td><a href='MostrarObra?idObra=" + can.getIdObra() + "' >" + can.getTitulo() + "</td>");
+				out.print("<td><a href='MostrarCatalogo?id=" + can.getIdAutor() + "' >" + can.getArtista() + "</a></td>");
 				out.print("</tr>");
 			}
 			out.print("</table>");
+
+			// Crear filtro para id autor
+
+			int id = 0;
+			String idParametro = request.getParameter("id");
+
+			try {
+				id = Integer.parseInt(idParametro);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+			if (id != 0) {
+				// _______________________________________
+				String consultaAutor = "SELECT * from autor where id=" + id;
+				rset = sentencia.executeQuery(consultaAutor);
+				if (!rset.isBeforeFirst()) {
+					out.println("<h3>No hay resultados</p>");
+				}
+				// Paso 5: Mostrar resultados
+
+				else {
+					rset.next();
+					out.println("<p>Obras del autor " + rset.getString("nombre") + ":</p>");
+				}
+
+				String consultaObras = "SELECT *,nombre AS autor FROM obra,autor WHERE id = " + id
+						+ " AND autor.id=obra.idAutor";
+				rset = sentencia.executeQuery(consultaObras);
+				if (!rset.isBeforeFirst()) {
+					out.println("<p>Este autor no tiene ninguna obra</p>");
+				}		
+				out.println("<table border='1'>");
+				
+				while (rset.next()) {
+					out.println( "<tr>");
+					out.println( "<th style='background-color:lightgrey;' >Obra</th>");
+					out.println( "<td>Titulo:<span> " +rset.getString("titulo")+ "</span></td>");
+					out.println( "<td>Categoria: <span>"+ rset.getString("categoria")+ "</span></td>");
+					out.println( "<td>Duración: <span>" + rset.getDouble("duracion")+ "</span></td>");
+					out.println( "<td><img  src='img/"+rset.getString("imagen")+"' width='100px'></td>");
+					out.println( "</tr>");
+				}
+				out.println( "</table>");
+			}
+			out.print("<br/><a href='/Java13-Catalogo/MostrarCatalogo'>Eliminar filtros</a>");
+
 			// Paso 6: Desconexión
 			if (sentencia != null)
 				sentencia.close();
@@ -82,7 +130,6 @@ public class MostrarCatalogo extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 
 		out.println("</body></html>");
 		out.close();
