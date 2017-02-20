@@ -76,7 +76,7 @@ while ( $fila != null ) {
 }
 echo "</table>";
 
-echo "<a href='mostrarCatalogo.php'>Eliminar filtros</a>";
+echo "<a href='mostrarCatalogo.php'>Volver</a>";
 
 mysqli_close ( $conexion );
 

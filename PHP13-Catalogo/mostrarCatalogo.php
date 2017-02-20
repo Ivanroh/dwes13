@@ -28,18 +28,19 @@ if ($conexion->connect_errno) {
 	echo "<p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>";
 }
 
-if ($_REQUEST ( "busqueda" ) == "autor") {
-	
-	//if ($_REQUEST ( "orden" ) == "desc") {
-		$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY	autor.nombre desc" );
-	//} else
-		//$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY	autor.nombre" );
-} elseif ($_REQUEST ( "busqueda" ) == "titulo") {
-	
-	//if ($_REQUEST ( "orden" ) == "desc") {
-		$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY	obra.titulo desc" );
-	//} else
-		//$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY obra.titulo" );
+if (isset ( $_REQUEST ["nom"] )) {
+	if ($_REQUEST ["nom"] == "autor") {
+		if ($_REQUEST ["orden"] == "desc") {
+			$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY	autor.nombre desc" );
+		} else
+			$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY	autor.nombre" );
+	} elseif ($_REQUEST ["nom"] == "titulo") {
+		
+		if ($_REQUEST ["orden"] == "desc") {
+			$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY	obra.titulo desc" );
+		} else
+			$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY obra.titulo" );
+	}
 } else
 	$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor" );
 
@@ -52,11 +53,11 @@ if ($_REQUEST ( "busqueda" ) == "autor") {
 			<th>Duración</th>
 			<th>Nombre Autor</th>
 			<th>Imagen</th>  -->
-			<th>Nombre Autor <a
-				href="mostrarCatalogo.php?busqueda=autor">&#9650;</a> <a
-				href="mostrarCatalogo.php?busqueda=autor">&#9660;</a>
+			<th>Nombre Autor <a href="mostrarCatalogo.php?nom=autor&orden=asc">&#9650;</a>
+				<a href="mostrarCatalogo.php?nom=autor&orden=desc">&#9660;</a>
 			</th>
-			<th>Titulo <a>&#9650;</a> <a>&#9660;</a>
+			<th>Titulo <a href="mostrarCatalogo.php?nom=titulo&orden=asc">&#9650;</a>
+				<a href="mostrarCatalogo.php?nom=titulo&orden=desc">&#9660;</a>
 			</th>
 
 		</tr>
@@ -75,8 +76,11 @@ if ($_REQUEST ( "busqueda" ) == "autor") {
 		echo "</tr>";
 	}
 	
+	
 	?>
 	</table>
+	
+	<?php echo "<br/><a href='mostrarCatalogo.php'>Eliminar filtros</a>";?>
 	<br />
 	<br />
 	<h3>Buscar obra por título</h3>
