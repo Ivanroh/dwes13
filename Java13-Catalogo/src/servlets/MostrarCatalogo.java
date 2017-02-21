@@ -56,7 +56,7 @@ public class MostrarCatalogo extends HttpServlet {
 
 			if (request.getParameter("obra") != null) {
 
-				consulta = "SELECT * from obra where titulo ='"+ request.getParameter("obra") + "'";
+				consulta = "SELECT * from obra where titulo like '"+ request.getParameter("obra") + "%'";
 
 				//out.println("<p>" + consulta + "</p>");
 				if (request.getParameter("nom") != null) {
@@ -97,7 +97,7 @@ public class MostrarCatalogo extends HttpServlet {
 			 */
 
 			out.print("<h3>Buscar obra por título</h3>");
-			out.print("<form action='MostrarCatalogo' method='post'>");
+			out.print("<form action='MostrarCatalogo' method='get'>");
 			out.print("	<label>Nombre de la obra: </label><input type='text' name='obra'> <br />");
 			out.print("	<input type='submit' name='enviar' value='Buscar Obra'>");
 			out.print("</form>");
