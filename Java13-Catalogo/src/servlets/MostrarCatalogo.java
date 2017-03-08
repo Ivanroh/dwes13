@@ -53,28 +53,48 @@ public class MostrarCatalogo extends HttpServlet {
 			// Paso 4: Ejecutar la sentencia SQL a través de los objetos
 			// Statement
 			String consulta = "SELECT * from obra";
+			String obra = "no";
+			if (request.getParameter("nom") != null) {
+				if (request.getParameter("nom").equalsIgnoreCase("titulo")) {
+					if (request.getParameter("orden").equalsIgnoreCase("desc")) {
+						consulta = "SELECT * from obra order by titulo desc";
+					} else
+						consulta = "SELECT * from obra order by titulo";
+				} else if (request.getParameter("nom").equalsIgnoreCase("autor")) {
+					if (request.getParameter("orden").equalsIgnoreCase("desc")) {
+						consulta = "SELECT * from obra order by artista desc";
+					} else
+						consulta = "SELECT * from obra order by artista";
+				}
 
+			} else
+				consulta = "SELECT * from obra";
 			if (request.getParameter("obra") != null) {
+				if (!request.getParameter("obra").equalsIgnoreCase("no")) {
+					out.print("No es nulo");
+					consulta = "SELECT * from obra where titulo like '%" + request.getParameter("obra") + "%'";
+					if (request.getParameter("nom") != null) {
+						if (request.getParameter("nom").equalsIgnoreCase("titulo")) {
+							if (request.getParameter("orden").equalsIgnoreCase("desc")) {
+								consulta = "SELECT * from obra where titulo like '%" + request.getParameter("obra")
+										+ "%' order by titulo desc";
+							} else
+								consulta = "SELECT * from obra where titulo like '%" + request.getParameter("obra")
+										+ "%' order by titulo";
+						} else if (request.getParameter("nom").equalsIgnoreCase("autor")) {
+							if (request.getParameter("orden").equalsIgnoreCase("desc")) {
+								consulta = "SELECT * from obra where titulo like '%" + request.getParameter("obra")
+										+ "%' order by artista desc";
+							} else
+								consulta = "SELECT * from obra where titulo like '%" + request.getParameter("obra")
+										+ "%' order by artista";
+						}
 
-				consulta = "SELECT * from obra where titulo like '"+ request.getParameter("obra") + "%'";
-
-				//out.println("<p>" + consulta + "</p>");
-				if (request.getParameter("nom") != null) {
-					if (request.getParameter("nom").equalsIgnoreCase("titulo")) {
-						if (request.getParameter("orden").equalsIgnoreCase("desc")) {
-							consulta = "SELECT * from obra order by titulo desc";
-						} else
-							consulta = "SELECT * from obra order by titulo";
-					} else if (request.getParameter("nom").equalsIgnoreCase("autor")) {
-						if (request.getParameter("orden").equalsIgnoreCase("desc")) {
-							consulta = "SELECT * from obra order by artista desc";
-						} else
-							consulta = "SELECT * from obra order by artista";
 					}
 				}
 			} else
 				consulta = "SELECT * from obra";
-			
+
 			ResultSet rset = sentencia.executeQuery(consulta);
 
 			if (!rset.isBeforeFirst()) {
@@ -83,31 +103,22 @@ public class MostrarCatalogo extends HttpServlet {
 
 			// Paso 5: Mostrar resultados
 
-			/*
-			 * Incluye en /MostrarCatalogo un formulario con un campo de texto
-			 * para buscar obras por nombre. El formulario será procesado por la
-			 * misma plantilla, y mostrará solo aquellas obras cuyo nombre
-			 * contenga el texto buscado. Esto puede hacerse de dos formas: Más
-			 * sencilla: obligar a que contenga todo el texto leído del campo en
-			 * el mismo orden Más compleja y mejor: separar las palabras
-			 * introducidas en el campo, y obligar a que las contenga todas Al
-			 * final se incluirá el enlace Eliminar filtros para volver a la
-			 * misma plantilla, sin parámetros. (Opcional): permitir la búsqueda
-			 * también por autor
-			 */
-
 			out.print("<h3>Buscar obra por título</h3>");
 			out.print("<form action='MostrarCatalogo' method='get'>");
 			out.print("	<label>Nombre de la obra: </label><input type='text' name='obra'> <br />");
 			out.print("	<input type='submit' name='enviar' value='Buscar Obra'>");
 			out.print("</form>");
 
+			if (request.getParameter("obra") != null) {
+				obra = request.getParameter("obra");
+			}
 			out.print("<table border='1'>");
 			out.print("<tr>");
-			out.print(
-					"<th>Título <a href='MostrarCatalogo?nom=titulo&orden=asc'>&#9650;</a><a href='MostrarCatalogo?nom=titulo&orden=desc'>&#9660;</a></th>");
-			out.print(
-					"<th>Autor <a href='MostrarCatalogo?nom=autor&orden=asc'>&#9650;</a><a href='MostrarCatalogo?nom=autor&orden=desc'>&#9660;</a></th>");
+			out.print("<th>Título <a href='MostrarCatalogo?nom=titulo&orden=asc&obra=" + obra
+					+ "'>&#9650;</a><a href='MostrarCatalogo?nom=titulo&orden=desc&obra=" + obra
+					+ "'>&#9660;</a></th>");
+			out.print("<th>Autor <a href='MostrarCatalogo?nom=autor&orden=asc&obra=" + obra
+					+ "'>&#9650;</a><a href='MostrarCatalogo?nom=autor&orden=desc&obra=" + obra + "'>&#9660;</a></th>");
 			out.print("</tr>");
 			while (rset.next()) {
 				Cancion can = new Cancion(rset.getInt("idObra"), rset.getString("artista"), rset.getString("titulo"),

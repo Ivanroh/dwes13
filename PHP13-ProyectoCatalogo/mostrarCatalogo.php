@@ -2,9 +2,17 @@
 <head>
 <title>Conexión a BBDD con PHP</title>
 <meta charset="UTF-8" />
+<!--Bootstrap-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--Bootstrap-->
+
+<link href="estilo/catalogo.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
-	<h2>Pruebas con la base de datos</h2>
+<body class="container">
+	<h1>Pruebas con la base de datos</h1><br>
 <?php
 include "Obra.php";
 $servidor = "localhost";
@@ -64,12 +72,14 @@ if (isset ( $_GET ["obra"] )) {
 	$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor" );
 
 ?>
-<h3>Buscar obra por título</h3>
+
 	<form action="<?php $_SERVER["PHP_SELF"]?>" method="get">
-		<label>Nombre de la obra: </label><input type="text" name="obra"> <br />
-		<input type="submit" name="enviar" value="Buscar Obra">
+	<div class="form-group">
+		<input type="text" name="obra" class="form-control" placeholder="Buscar obra por título">
+	</div>
 	</form>
-	<table>
+	<div class="table-responsive">
+	<table class="table table-hover">
 		<tr bgcolor="lightblue">
 			<!--<th>Artista</th>
 			<th>Titulo</th>
@@ -93,20 +103,14 @@ if (isset ( $_GET ["obra"] )) {
 	
 	while ( $cancion = $resultado->fetch_object ( 'Obra' ) ) {
 		echo "<tr bgcolor='lightgrey'>";
-		// echo "<td>" . $cancion->getArtista () . "</td>\n";
 		echo "<td><a href='filtroObraAutor.php?id=" . $cancion->getIdAutor () . "'>" . $cancion->getAutor () . " </td>\n";
 		echo "<td><a href='mostrarObra.php?idObra=" . $cancion->getIdObra () . "'>" . $cancion->getTitulo () . "</a></td>";
-		// echo "<td>" . $cancion->getCategoria(). "</td>\n";
-		// echo "<td>" . $cancion->getDuracion() . "</td>\n";
-		// echo "<td><img src='img/".$cancion->getimagen()."' width='50px'></td>\n";
-		
-		// echo "<td>" . $cancion->getTitulo() . "</td>\n";
 		echo "</tr>";
 	}
 	
 	?>
 	</table>
-	
+	</div>
 	<?php echo "<br/><a href='mostrarCatalogo.php'>Eliminar filtros</a>";?>
 	<br />
 	<br />
