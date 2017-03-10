@@ -45,7 +45,7 @@ if (! isset ( $_REQUEST ["artista"] ))
 		echo "<td><span> " . $fila['origen'] . "</span></td>";
 		echo "<td><span> " . $fila['dia'] . "</span></td>";
 		echo "<td><img src='img/".$fila['imagen']."'  width='100px'> </td>";
-		echo "<td><span> " . $fila['url'] . "</span></td>";
+		echo "<td><span> <a href='" . $fila['url'] . "'>" . $fila['url'] . "</a></span></td>";
 		echo "</tr>";
 	
 		$dia=$fila['dia'];
