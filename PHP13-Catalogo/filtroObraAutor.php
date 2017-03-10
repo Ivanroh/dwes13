@@ -26,7 +26,6 @@ echo "<li>Contraseña del usuario en MySQL: $clave</li>";
 </ul>
 
 <?php
-echo "<h3>Estableciendo conexión...</h3>";
 $conexion = new mysqli ( $servidor, $usuario, $clave, "catalogo" );
 $conexion->query ( "SET NAMES 'UTF8'" );
 if ($conexion->connect_errno) {

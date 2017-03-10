@@ -71,12 +71,6 @@ if (isset ( $_GET ["obra"] )) {
 	</form>
 	<table>
 		<tr bgcolor="lightblue">
-			<!--<th>Artista</th>
-			<th>Titulo</th>
-			<th>Categoria</th>
-			<th>Duración</th>
-			<th>Nombre Autor</th>
-			<th>Imagen</th>  -->
 			<th>Nombre Autor <a
 				href="mostrarCatalogo.php?nom=autor&orden=asc&obra=<?php echo $obra?>">&#9650;</a>
 				<a
