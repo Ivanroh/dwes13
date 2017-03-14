@@ -1,26 +1,11 @@
-<html>
-<head>
-<title>Conexión a BBDD con PHP</title>
-<meta charset="UTF-8" />
-<!--Bootstrap-->
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!--Bootstrap-->
-
-<link href="estilo/catalogo.css" rel="stylesheet" type="text/css" />
-</head>
-<body class="container">
-	<h1>Pruebas con la base de datos</h1><br>
 <?php
+session_start ();
+
 include "Obra.php";
 $servidor = "localhost";
 $usuario = "alumno";
 $clave = "alumno";
-?>
 
-<?php
 $conexion = new mysqli ( $servidor, $usuario, $clave, "catalogo" );
 $conexion->query ( "SET NAMES 'UTF8'" );
 if ($conexion->connect_errno) {
@@ -28,77 +13,106 @@ if ($conexion->connect_errno) {
 }
 
 $obra = "no";
+$varBus = "";
+$select = "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor";
 
 if (isset ( $_REQUEST ["nom"] )) {
 	
+	if (isset ( $_SESSION ["busqueda"] )) {
+		$varBus = $_SESSION ["busqueda"];
+	}
+	
 	if ($_REQUEST ["nom"] == "autor") {
 		if ($_REQUEST ["orden"] == "desc") {
-			$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY	autor.nombre desc" );
+			$select = "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor and titulo like '%" . $varBus . "%' ORDER BY autor.nombre desc";
 		} else
-			$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY	autor.nombre" );
+			$select = "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor and titulo like '%" . $varBus . "%' ORDER BY	autor.nombre";
 	} elseif ($_REQUEST ["nom"] == "titulo") {
 		
 		if ($_REQUEST ["orden"] == "desc") {
-			$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY	obra.titulo desc" );
+			$select = "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor and titulo like '%" . $varBus . "%' ORDER BY	obra.titulo desc";
 		} else
-			$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor ORDER BY obra.titulo" );
+			$select = "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor and titulo like '%" . $varBus . "%' ORDER BY obra.titulo";
 	}
-} else
-	$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor" );
+	$_SESSION ["select"] = $select;
+}
 
-if (isset ( $_GET ["obra"] )) {
-	
-	if ($_GET ["obra"] != "no") {
-		
-		$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor and titulo like '%" . $_REQUEST ["obra"] . "%'" );
-		$obra = $_GET ["obra"];
-		if (isset ( $_REQUEST ["nom"] )) {
-			
-			if ($_REQUEST ["nom"] == "autor") {
-				if ($_REQUEST ["orden"] == "desc") {
-					$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor and titulo like '%" . $_REQUEST ["obra"] . "%' ORDER BY	autor.nombre desc" );
-				} else
-					$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor and titulo like '%" . $_REQUEST ["obra"] . "%' ORDER BY	autor.nombre" );
-			} elseif ($_REQUEST ["nom"] == "titulo") {
-				
-				if ($_REQUEST ["orden"] == "desc") {
-					$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor and titulo like '%" . $_REQUEST ["obra"] . "%' ORDER BY	obra.titulo desc" );
-				} else
-					$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor and titulo like '%" . $_REQUEST ["obra"] . "%' ORDER BY obra.titulo" );
-			}
-		}
+if (isset ( $_SESSION ["select"] ))
+	$resultado = $conexion->query ( $_SESSION ["select"] );
+else
+	$resultado = $conexion->query ( $select );
+
+if (isset ( $_GET ["busqObra"] )) {
+	$_SESSION ["busqueda"] = $_GET ["busqObra"];
+	$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor and titulo like '%" . $_SESSION ["busqueda"] . "%'" );
+}
+
+
+if (isset ( $_REQUEST ["cerrarSesion"] )) {
+	$_SESSION = array ();
+	session_unset ();
+	if (ini_get ( "session.use_cookies" )) {
+		$params = session_get_cookie_params ();
+		setcookie ( session_name (), '', time () - 42000, $params ["path"], $params ["domain"], $params ["secure"], $params ["httponly"] );
 	}
-} else
-	$resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor" );
+	session_destroy ();
+	header("Refresh:0;mostrarcatalogo.php");
+}
 
 ?>
 
+
+
+<html>
+<head>
+<title>Conexión a BBDD con PHP</title>
+<meta charset="UTF-8" />
+<!--Bootstrap-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--Bootstrap-->
+
+<link href="estilo/catalogo.css" rel="stylesheet" type="text/css" />
+</head>
+<script type="text/javascript">
+</script>
+<body class="container">
+	<h1>Proyecto Artistas - Canciones <small>Iván Rodrigo Hidalgo García</small></h1>
+	<br>
+
+
 	<form action="<?php $_SERVER["PHP_SELF"]?>" method="get">
-	<div class="form-group">
-		<input type="text" name="obra" class="form-control" placeholder="Buscar obra por título">
-	</div>
+		<div class="form-group">
+			<input type="text" name="busqObra" class="form-control"
+				placeholder="Buscar obra por título">
+		</div>
 	</form>
 	<div class="table-responsive">
-	<table class="table table-hover">
-		<tr bgcolor="lightblue">
-			<!--<th>Artista</th>
-			<th>Titulo</th>
-			<th>Categoria</th>
-			<th>Duración</th>
-			<th>Nombre Autor</th>
-			<th>Imagen</th>  -->
-			<th>Nombre Autor <a
-				href="mostrarCatalogo.php?nom=autor&orden=asc&obra=<?php echo $obra?>">&#9650;</a>
-				<a
-				href="mostrarCatalogo.php?nom=autor&orden=desc&obra=<?php echo $obra?>">&#9660;</a>
-			</th>
-			<th>Titulo <a
-				href="mostrarCatalogo.php?nom=titulo&orden=asc&obra=<?php echo $obra?>">&#9650;</a>
-				<a
-				href="mostrarCatalogo.php?nom=titulo&orden=desc&obra=<?php echo $obra?>">&#9660;</a>
-			</th>
+		<table class="table table-hover">
+			<tr>
+				<th>Nombre Autor <a
+					href="mostrarCatalogo.php?nom=autor&orden=asc&obra=<?php echo $obra?>">
+						<span class="glyphicon glyphicon-sort-by-alphabet"></span>
+				</a> <a
+					href="mostrarCatalogo.php?nom=autor&orden=desc&obra=<?php echo $obra?>">
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+				</a>
+				</th>
+				<th>Titulo <a
+					href="mostrarCatalogo.php?nom=titulo&orden=asc&obra=<?php echo $obra?>">
+						<span class="glyphicon glyphicon-sort-by-alphabet"></span>
+				</a> <a
+					href="mostrarCatalogo.php?nom=titulo&orden=desc&obra=<?php echo $obra?>">
+						<span class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+				</a>
+				</th>
 
-		</tr>
+			</tr>
 	<?php
 	
 	while ( $cancion = $resultado->fetch_object ( 'Obra' ) ) {
@@ -111,33 +125,9 @@ if (isset ( $_GET ["obra"] )) {
 	?>
 	</table>
 	</div>
-	<?php echo "<br/><a href='mostrarCatalogo.php'>Eliminar filtros</a>";?>
+	<a href="<?php echo $_SERVER['PHP_SELF']."?cerrarSesion=true"?>">Eliminar filtros</a>
 	<br />
 	<br />
-	
 
-<?php 
-/*
-	       * mysqli_free_result ( $resultado );
-	       * $resultado = $conexion->query ( "SELECT *,nombre AS autor FROM obra,autor where autor.id=obra.idAutor" );
-	       * $esta = false;
-	       * if (isset ( $_POST ["enviar"] )) {
-	       *
-	       * while ( $cancion = $resultado->fetch_object ( 'Obra' ) ) {
-	       *
-	       * if (strcasecmp ( $cancion->getTitulo (), $_POST ["obra"] ) == 0) {
-	       * echo "<tr bgcolor='lightgrey'>";
-	       * echo "<td><a href='filtroObraAutor.php?id=" . $cancion->getIdAutor () . "'>" . $cancion->getAutor () . " </td>\n";
-	       * echo "<td><a href='mostrarObra.php?idObra=" . $cancion->getIdObra () . "'>" . $cancion->getTitulo () . "</a></td>";
-	       * echo "</tr>";
-	       * $esta = true;
-	       * }
-	       * }
-	       * if (! $esta)
-	       * echo "<p>No se encotro ninguna obra con el nombre - " . $_POST ['obra'] . " -</p>";
-	       * }
-	       */
-
-?>
 </body>
 </html>

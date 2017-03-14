@@ -93,7 +93,7 @@ public class PaginaPrincipal extends HttpServlet {
 			while (rset.next()) {
 				out.print("<li>");
 				//out.println(rset.getString("origen"));
-				out.print("<a href='Cartel?pais=" +rset.getString("origen") + "'>Día " + rset.getString("dia")	+ " </a>");
+				out.print("<a href='Cartel?pais=&#39;" +rset.getString("origen") + "&#39;'>Día " + rset.getString("dia")	+ " </a>");
 				out.print("</li>");
 			}
 			out.print("</table>");

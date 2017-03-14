@@ -86,7 +86,7 @@ public class Cartel extends HttpServlet {
 						//Falla porque al pasarle por parametro pide un String dentro de sus comilla '' 
 						//y se le pasa el nombre tal cual, si se le añaden las comillas al link funciona
 						// por falta de tiempo no se pudo solucionar
-						out.print( "<td><a href='"+ contexto.getContextPath()+"/Artista?artista="+ rset.getString("nombre") +"'><span> " + rset.getString("nombre") + "</span></a></td>");
+						out.print( "<td><a href='"+ contexto.getContextPath()+"/Artista?artista=&#39;"+ rset.getString("nombre") +"&#39;'><span> " + rset.getString("nombre") + "</span></a></td>");
 						out.print( "<td><span> "+ rset.getString("origen")+"</span></td>");
 						out.print( "</tr>");
 					}
